@@ -3,6 +3,7 @@ player = require 'player'
 coli = require 'collision'
 endgame = false
 enemies = {}
+--test
 width = love.graphics.getWidth()
 height = love.graphics.getHeight()
 function love.update(dt)
