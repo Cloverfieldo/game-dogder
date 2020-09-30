@@ -1,48 +1,22 @@
---cool_enemy = require 'enemy'
---player = require 'player'
---coli = require 'collision'
---endgame = false
---enemies = {}
-----test
---width = love.graphics.getWidth()
---height = love.graphics.getHeight()
---function love.update(dt)
---  if not endgame then
---    player.update(dt)
---    cool_enemy.update(dt)
---  end
---end
-
---function love.draw()
---  fi = love.graphics.newFont(12)
---  love.graphics.setFont(fi)
---  love.graphics.print(tostring(love.timer.getFPS()), 500, 0)
---  love.graphics.print(tostring(player.score), 0, 30)
---  player.draw()
---  cool_enemy.draw()
---  if endgame then
---    fo = love.graphics.newFont(50)
---    love.graphics.setFont(fo)
---    love.graphics.print('LOST TRY AGAIN', 250, 300)
---  end
-  
---end
-
---function love.keyreleased(k)
---  if k == 'f5' then
---    love.event.quit('restart')
---  end
---end
-
+local gameplay = require 'gameplay'
 local menu = require 'menu'
-
+state = 'menu'
 function love.load()
   menu:load()
 end
-function love.update()
-  
-end
+function love.update(dt)
+  if state == 'menu' then
 
+  end
+  gameplay.update(dt)
+end
 function love.draw()
-  menu:draw()
+  if state == 'menu' then
+    menu:draw()
+  elseif state == 'gameplay' then
+    gameplay.draw()
+  end
+end
+function love.keyreleased(k)
+  gameplay.keyreleased(k)
 end
