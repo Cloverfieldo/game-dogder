@@ -2,21 +2,44 @@ local bad = {}
 local player = require 'player'
 local totalEnemys = 0
 
+function bad.load()
+  spritesshet = love.graphics.newImage('sprite_sheet.png')
+  frames = {}
+  local width = spritesshet:getWidth()
+  local height = spritesshet:getHeight()
+  --print(height, width)
+
+  local frame_width = 18
+  local frame_height = 18
+
+  for i=0,2 do
+    for j=0,2 do
+      local quad = love.graphics.newQuad(j * frame_width, i * frame_height, frame_width, frame_height, width, height)
+      table.insert(frames, quad)
+      if #frames == 8 then
+        break
+      end
+
+    end
+  end
+
+  currentFrame = 1
+end
 function bad.update(dt)
   if totalEnemys < 20 then
     local enemy = {}
     enemy.x = love.math.random(width)
     enemy.y = 0
     enemy.tipo = love.math.random(10)
-    enemy.width = 25
-    enemy.height = 25
+    enemy.width = 18
+    enemy.height = 18
     enemy.checked = false
     enemy.speed = love.math.random(50, 200)
     table.insert(enemies, enemy)
     totalEnemys = totalEnemys + 1
     --print(totalEnemys)
   end
-  
+
   local index = 1
   while index <= #enemies do
     enemies[index].y = enemies[index].y + enemies[index].speed * dt
@@ -43,15 +66,22 @@ function bad.update(dt)
     end
   end
 end
+bad.sprite_work = function(dt)
+  currentFrame = currentFrame + 10 * dt
+  if currentFrame >= 8 then
+    currentFrame = 1
+  end
+end
+
 bad.draw = function()
   for i,v in ipairs(enemies) do
     --love.graphics.setColor(1, 0, 0)
     if v.tipo < 2 then
-      love.graphics.setColor(0, 0, 1)
+      --love.graphics.setColor(0, 0, 1)
     elseif v.tipo >= 2 then
-      love.graphics.setColor(1, 0, 0)
+      --love.graphics.setColor(1, 0, 0)
     end
-    love.graphics.rectangle('fill', v.x, v.y, v.width, v.height)
+    love.graphics.draw(spritesshet, frames[math.floor(currentFrame)], v.x, v.y,0, 2,2 )
   end
 end
 return bad

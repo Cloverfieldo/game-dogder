@@ -2,6 +2,7 @@ local gameplay = require 'gameplay'
 local menu = require 'menu'
 state = 'menu'
 function love.load()
+  gameplay.load()
   menu:load()
 end
 function love.update(dt)

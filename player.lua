@@ -2,8 +2,8 @@ player = {}
 player.x = 300
 player.y = 500
 player.speed = 500
-player.width = 50
-player.height = 50
+player.width = 16
+player.height = 16
 player.score = 0
 player.update = function(dt)
   if love.keyboard.isDown('d') and player.x < 800 - player.width then
@@ -20,6 +20,7 @@ player.update = function(dt)
 end
 function player.draw()
   love.graphics.setColor(1, 1, 1)
+  --love.graphics.translate(-player.x + 400, -player.y + 300)
   love.graphics.rectangle('fill', player.x, player.y, player.height, player.width)
 end
 return player
