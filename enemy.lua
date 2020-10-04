@@ -4,6 +4,7 @@ local totalEnemys = 0
 
 function bad.load()
   spritesshet = love.graphics.newImage('sprite_sheet.png')
+  spritesshet:setFilter( "nearest", "nearest")
   frames = {}
   local width = spritesshet:getWidth()
   local height = spritesshet:getHeight()
@@ -26,13 +27,17 @@ function bad.load()
   currentFrame = 1
 end
 function bad.update(dt)
+  currentFrame = currentFrame + 10 * dt
+  if currentFrame >= 8 then
+    currentFrame = 1
+  end
   if totalEnemys < 20 then
     local enemy = {}
     enemy.x = love.math.random(width)
     enemy.y = 0
     enemy.tipo = love.math.random(10)
-    enemy.width = 18
-    enemy.height = 18
+    enemy.width = 18 * 2.5
+    enemy.height = 18 * 2.5
     enemy.checked = false
     enemy.speed = love.math.random(50, 200)
     table.insert(enemies, enemy)
@@ -66,13 +71,6 @@ function bad.update(dt)
     end
   end
 end
-bad.sprite_work = function(dt)
-  currentFrame = currentFrame + 10 * dt
-  if currentFrame >= 8 then
-    currentFrame = 1
-  end
-end
-
 bad.draw = function()
   for i,v in ipairs(enemies) do
     --love.graphics.setColor(1, 0, 0)
@@ -81,7 +79,7 @@ bad.draw = function()
     elseif v.tipo >= 2 then
       --love.graphics.setColor(1, 0, 0)
     end
-    love.graphics.draw(spritesshet, frames[math.floor(currentFrame)], v.x, v.y,0, 2,2 )
+    love.graphics.draw(spritesshet, frames[math.floor(currentFrame)], v.x, v.y,0, 2.5,2.5 )
   end
 end
 return bad

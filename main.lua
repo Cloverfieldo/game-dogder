@@ -4,6 +4,7 @@ state = 'menu'
 function love.load()
   gameplay.load()
   menu:load()
+  --love.graphics.setDefaultFilter( 'nearest', 'nearest', 0) 
 end
 function love.update(dt)
   if state == 'menu' then

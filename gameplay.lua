@@ -14,7 +14,7 @@ end
 function gameplay.update(dt)
   if not endgame and state == 'gameplay' then
     player.update(dt)
-    cool_enemy.sprite_work(dt)
+    --cool_enemy.sprite_work(dt)
     cool_enemy.update(dt)
   end
 end
